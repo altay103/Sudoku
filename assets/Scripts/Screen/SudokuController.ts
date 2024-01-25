@@ -1,4 +1,4 @@
-import { __private, _decorator, Component, instantiate, Node, Prefab, Vec2, Vec3 } from 'cc';
+import { __private, _decorator, CCInteger, Component, instantiate, Node, Prefab, Vec2, Vec3 } from 'cc';
 import { SudokuBoard } from './SudokuBoard';
 import { PartofSudoku } from './PartofSudoku';
 const { ccclass, property } = _decorator;
@@ -15,22 +15,42 @@ export class SudokuController extends Component {
     
     sudokuBoard:SudokuBoard;
     sudokuNodes:Node[][];
-
+    currentPos:Vec2=new Vec2(4,4);
     partSize:number=60;
+
     start() {
-        // Sudoku tahtasını oluştur ve yazdır
+
         this.sudokuBoard=new SudokuBoard();
         this.createBoard();
         this.sudokuBoard.printBoard();
-    
+        
+        window["airconsole"].onMessage=(deviceId,data)=>{
+            this.inputAnalyzer(data);
+        }
+        
     }
-    
+
+    inputAnalyzer(inputPackage){
+        if(inputPackage.direction!="null"){
+            this.moveBox(inputPackage.direction);
+        }
+        if(inputPackage.numpad!=null){
+            this.writeValue(inputPackage.numpad);
+        }
+    }
+
+    moveBox(direction){
+        
+    }
+
+    writeValue(numpad){
+
+    }
+
+
+
     createBoard(){ 
         console.log("Creating Sudoku...");
-        //destroy all child
-        //bir array doldur
-        //bir for aç
-        //açılan forda oluşturulan her bir nodu arraya ekle değerini gir ve istenilen yere yerleştir
         this.spawnPoint.removeAllChildren();
 
         this.sudokuNodes=new Array(9);
@@ -56,7 +76,7 @@ export class SudokuController extends Component {
 
     
     update(deltaTime: number) {
-        
+
     }
 }
 
