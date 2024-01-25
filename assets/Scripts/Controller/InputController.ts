@@ -25,15 +25,20 @@ export class InputController extends Component {
     onJoyStick(direction) {
         if(direction!=this.inputPackage.direction){
             this.inputPackage.direction=direction;
-            console.log("inputPackage: "+JSON.stringify(this.inputPackage));
+            this.sendPackage();
         }
     }
     onClickNumpad(event: Event,CustomEventData:number){
         if(CustomEventData!=this.inputPackage.numpad){
             this.inputPackage.numpad=CustomEventData;
-            console.log("inputPackage: "+JSON.stringify(this.inputPackage));
+            this.sendPackage();
         }
     }
 
+    sendPackage(){
+        console.log("inputPackage: "+JSON.stringify(this.inputPackage));
+        window["airconsole"].message(0,this.inputPackage);
+
+    }
     
 }
