@@ -7,7 +7,7 @@ export class SudokuBoard  {
     
     constructor() {
         this.board = this.generateBoard();
-        this.removeNumbers(30);
+        this.removeNumbers(40);
     }
     
     generateBoard(): number[][] {

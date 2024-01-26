@@ -1,4 +1,4 @@
-import { _decorator, Component, Label, Node, UITransform } from 'cc';
+import { _decorator, Color, Component, Label, Node, UITransform } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('PartofSudoku')
@@ -31,8 +31,13 @@ export class PartofSudoku extends Component {
         this.node.getComponent(UITransform).height=this._size;
     }
 
-    set default(val:boolean){
+    set default(val:boolean){//default val must be marked ==============> look at me
         this._default=val;
+        if(this._default){
+            this.node.getComponentInChildren(Label).color=new Color("#696969");
+        }else{
+            this.node.getComponentInChildren(Label).color=new Color("##000000");
+        }
     }
 
     start() {

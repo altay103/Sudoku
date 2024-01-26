@@ -1,4 +1,4 @@
-import { __private, _decorator, CCInteger, Component, instantiate, Node, Prefab, Vec2, Vec3 } from 'cc';
+import { __private, _decorator, CCInteger, Color, Component, instantiate, Node, Prefab, Sprite, Vec2, Vec3 } from 'cc';
 import { SudokuBoard } from './SudokuBoard';
 import { PartofSudoku } from './PartofSudoku';
 const { ccclass, property } = _decorator;
@@ -40,7 +40,7 @@ export class SudokuController extends Component {
         }
     }
 
-    async moveCursor(direction){//default box must be skip   =================> look at me
+    async moveCursor(direction){//default box must be skip   ===================================> look at me
         this.currentDirection=direction;
         if(direction=="null"){
             return;
@@ -100,8 +100,10 @@ export class SudokuController extends Component {
     }
     
 
-    writeValue(numpad){
-
+    writeValue(numpad){//not valid values must be marked ==================================================> look at me
+        const partOfSudoku:PartofSudoku=this.sudokuNodes[this.currentPos.x][this.currentPos.y].getComponent(PartofSudoku);
+        partOfSudoku.value=numpad;
+        this.sudokuBoard.board[this.currentPos.x][this.currentPos.y]=partOfSudoku.value;
     }
 
 
@@ -124,6 +126,17 @@ export class SudokuController extends Component {
                                                          (this.partSize/2+this.partSize*j+j*this.margin)-(4.5*this.partSize+4*this.margin));
                 
                 this.sudokuNodes[i][j].getComponent(PartofSudoku).value=this.sudokuBoard.board[i][j];
+                
+                if(this.sudokuBoard.board[i][j]!=0){
+                    this.sudokuNodes[i][j].getComponent(PartofSudoku).default=true;
+                    
+                }
+                const subi=Math.floor(i/3);
+                const subj=Math.floor(j/3);
+                if(((subi+subj)==2)||(subi==subj)){
+                    this.sudokuNodes[i][j].getComponent(Sprite).color=new Color("#FFCDAC");
+                }
+
                 
             }
         }

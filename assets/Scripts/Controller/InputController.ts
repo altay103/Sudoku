@@ -5,7 +5,7 @@ const { ccclass, property } = _decorator;
 @ccclass('Input')
 export class InputController extends Component {
 
-    inputPackage={deviceID:0,direction:"null",numpad:null}
+    inputPackage={deviceID:0,direction:null,numpad:null}
 
     private static instance:InputController;
 
