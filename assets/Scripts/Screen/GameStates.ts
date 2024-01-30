@@ -122,13 +122,14 @@ class ResultState implements State{
         this.gamestates=gamestates;
     }
     completed() {
+        
         throw new Error('Method not implemented.');
     }
     controllerConnected(deviceID: number) {
-        throw new Error('Method not implemented.');
+        window["airconsole"].message(deviceID,{status:"full"});
     }
     controllerDisconnected(deviceID: number) {
-        throw new Error('Method not implemented.');
+        console.log("Waiting in Result State");
     }
     matchMaked() {
         throw new Error('Method not implemented.');

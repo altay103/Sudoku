@@ -20,7 +20,7 @@ export  class GameManager extends Component {
     waitingControllerUI:Node;
     @property(Node)
     gameUI:Node;
-   
+    
     
     
 
@@ -64,12 +64,26 @@ export  class GameManager extends Component {
             });
         }else if(state==this.gameStates.playState){
             console.log("Play State");
-            //create sudoku
+            
         }else if(state==this.gameStates.matchMakingState){
             console.log("Match Making State");
             this.matchMaking();
         }else if(state==this.gameStates.resultState){
             console.log("Result State");
+            
+            this.waitingList.forEach(e=>{
+                window["airconsole"].message(e,{status:"completed"});
+            })
+         
+            setTimeout(() => {
+                if(this.waitingList.length>=2){
+                    this.gameStates.setState(this.gameStates.matchMakingState);
+                }else{
+                    this.gameStates.setState(this.gameStates.waitingControllerState);
+                }
+                
+              }, 4000);   
+            //Change timer start
         }
     }
     changeTurn(){

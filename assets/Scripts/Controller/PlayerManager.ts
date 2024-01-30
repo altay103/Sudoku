@@ -14,7 +14,9 @@ export class PlayerManager extends Component {
     inputUI:Node;
     @property(Node)
     turnUI:Node;
-    
+    @property(Node)
+    completedUI:Node;
+
     @property(Node)
     masterUI:Node;
 
@@ -43,6 +45,9 @@ export class PlayerManager extends Component {
                 else if(data.status=="turn"){
                     this.setCurrentUI(this.turnUI)
                 }
+                else if(data.status=="completed"){
+                    this.setCurrentUI(this.completedUI);
+                }
                 else if(data.status=="checkMaster" && data.package=="true"){
                     this.setMasterSetting(true);
                 }
@@ -55,6 +60,7 @@ export class PlayerManager extends Component {
         this.roomFullUI.active=false;
         this.inputUI.active=false;
         this.turnUI.active=false;
+        this.completedUI.active=false;
 
         currentUI.active=true;
     }

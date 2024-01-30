@@ -108,9 +108,12 @@ export class SudokuController extends Component {
             partOfSudoku.valid=false;
         }
         
-        console.log("is Completed?:"+this.sudokuBoard.isCompleted());
-
-        this.gameManager.changeTurn();
+        if(this.sudokuBoard.isCompleted()){
+            this.gameManager.gameStates.getState().completed();
+        }else{
+            this.gameManager.changeTurn();
+        }
+        
     }
 
 
