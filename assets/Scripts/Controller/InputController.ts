@@ -27,10 +27,9 @@ export class InputController extends Component {
         }
     }
     onClickNumpad(event: Event,CustomEventData:number){
-        if(CustomEventData!=this.inputPackage.numpad){
-            this.inputPackage.numpad=CustomEventData;
-            this.sendPackage();
-        }
+        this.inputPackage.numpad=CustomEventData;
+        this.sendPackage();
+        
     }
 
     sendPackage(){
