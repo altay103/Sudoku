@@ -64,4 +64,3 @@ export class PartofSudoku extends Component {
         
     }
 }
-

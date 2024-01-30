@@ -25,6 +25,8 @@ export class PlayerStates  {
         this.waitingTurnState=new WaitingTurnState(this);
         this.playingState=new PlayingState(this);
         this.matchResultState=new MatchResultState(this);
+
+        this.setState(this.waitingChosenState);
     }
 
     public setState(state:State){

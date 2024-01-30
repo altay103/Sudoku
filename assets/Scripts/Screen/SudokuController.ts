@@ -1,6 +1,7 @@
 import { __private, _decorator, CCInteger, Color, Component, error, instantiate, Node, Prefab, Sprite, Vec2, Vec3 } from 'cc';
 import { SudokuBoard } from './SudokuBoard';
 import { PartofSudoku } from './PartofSudoku';
+import { GameManager } from './GameManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('SudokuController')
@@ -12,7 +13,10 @@ export class SudokuController extends Component {
     margin:number;
     @property(Node)
     spawnPoint:Node;
-    
+    @property(GameManager)
+    gameManager:GameManager;
+
+
     sudokuBoard:SudokuBoard;
     sudokuNodes:Node[][];
     currentPos:Vec2=new Vec2(4,4);
@@ -26,9 +30,9 @@ export class SudokuController extends Component {
         this.sudokuBoard.printBoard();
 
         this.zoomIn(this.currentPos);
-        window["airconsole"].onMessage=(deviceId,data)=>{
+        /*window["airconsole"].onMessage=(deviceId,data)=>{
             this.inputAnalyzer(data);
-        }
+        }*/
     }
 
     inputAnalyzer(inputPackage){    
@@ -100,6 +104,9 @@ export class SudokuController extends Component {
 
     writeValue(numpad){//not valid values must be marked ==================================================> look at me
         const partOfSudoku:PartofSudoku=this.sudokuNodes[this.currentPos.x][this.currentPos.y].getComponent(PartofSudoku);
+        if(partOfSudoku.default){
+            return;
+        }
         partOfSudoku.value=numpad;
         
         this.sudokuBoard.board[this.currentPos.x][this.currentPos.y]=partOfSudoku.value;
@@ -108,8 +115,10 @@ export class SudokuController extends Component {
         }else{
             partOfSudoku.valid=false;
         }
+        
         console.log("is Completed?:"+this.sudokuBoard.isCompleted());
 
+        this.gameManager.changeTurn();
     }
 
 

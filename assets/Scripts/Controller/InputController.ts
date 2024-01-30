@@ -5,10 +5,9 @@ const { ccclass, property } = _decorator;
 @ccclass('Input')
 export class InputController extends Component {
 
-    inputPackage={deviceID:0,direction:null,numpad:null}
+    inputPackage={status:"input",deviceID:0,direction:null,numpad:null}
 
     private static instance:InputController;
-
 
     public static getInstance():InputController{
         if(!InputController.instance){
@@ -19,7 +18,6 @@ export class InputController extends Component {
 
     start() {
         this.inputPackage.deviceID=window["airconsole"].getDeviceId();
-        console.log("controller")
     }
     
     onJoyStick(direction) {
