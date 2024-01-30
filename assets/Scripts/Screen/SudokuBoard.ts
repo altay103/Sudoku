@@ -7,7 +7,7 @@ export class SudokuBoard  {
     
     constructor() {
         this.board = this.generateBoard();
-        this.removeNumbers(40);
+        this.removeNumbers(2);
     }
     
     generateBoard(): number[][] {
@@ -36,7 +36,7 @@ export class SudokuBoard  {
 
     isValid(board: number[][], row: number, col: number, num: number): boolean {
         for (let i = 0; i < 9; i++) {
-            if (board[row][i] === num || board[i][col] === num || board[3 * Math.floor(row / 3) + Math.floor(i / 3)][3 * Math.floor(col / 3) + i % 3] === num) {
+            if (board[row][i] == num || board[i][col] == num || board[3 * Math.floor(row / 3) + Math.floor(i / 3)][3 * Math.floor(col / 3) + i % 3] == num) {
                 return false;
             }
         }
@@ -62,7 +62,9 @@ export class SudokuBoard  {
     isCompleted(): boolean {
         for (let row = 0; row < 9; row++) {
             for (let col = 0; col < 9; col++) {
-                if (this.board[row][col] === 0 || !this.isValid(this.board, row, col, this.board[row][col])) {
+                if (this.board[row][col] == 0 || !this.isValidPlacement(row,col)){
+                    this.printBoard();
+                    console.log("error:"+row+","+col+"=>"+this.board[row][col]);
                     return false;
                 }
             }
@@ -80,14 +82,13 @@ export class SudokuBoard  {
                 }
             }
         }
-
+        
         return errors;
     }
 
     isValidPlacement(row: number, col: number): boolean {
         let num = this.board[row][col];
-        console.log(num+"??");
-        // Satır ve sütun kontrolü
+
         for (let i = 0; i < 9; i++) {
             if (i != col && this.board[row][i] == num) {
                 return false;
@@ -97,7 +98,7 @@ export class SudokuBoard  {
             }
         }
 
-        // Blok kontrolü
+        
         let startRow = Math.floor(row / 3) * 3;
         let startCol = Math.floor(col / 3) * 3;
 
@@ -113,7 +114,14 @@ export class SudokuBoard  {
     }
     
     printBoard(): void {
-        console.log(this.board.map(row => row.join(' ')).join('\n'));
+        let boardstr:String="";
+        for(let i=0;i<9;i++){
+            for(let j=0;j<9;j++){
+               boardstr+=this.board[i][j].toString()+" "; 
+            }
+            boardstr+="\n";
+        }
+        console.log(boardstr);
     }
 
 }

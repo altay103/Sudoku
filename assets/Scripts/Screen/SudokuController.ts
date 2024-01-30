@@ -29,8 +29,6 @@ export class SudokuController extends Component {
         window["airconsole"].onMessage=(deviceId,data)=>{
             this.inputAnalyzer(data);
         }
-
-        
     }
 
     inputAnalyzer(inputPackage){    
@@ -106,12 +104,12 @@ export class SudokuController extends Component {
         
         this.sudokuBoard.board[this.currentPos.x][this.currentPos.y]=partOfSudoku.value;
         if(this.sudokuBoard.isValidPlacement(this.currentPos.x,this.currentPos.y)){
-            console.log("true");
             partOfSudoku.valid=true;
         }else{
-            console.log("false");
             partOfSudoku.valid=false;
         }
+        console.log("is Completed?:"+this.sudokuBoard.isCompleted());
+
     }
 
 
