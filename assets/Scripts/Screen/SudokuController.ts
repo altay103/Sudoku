@@ -1,4 +1,4 @@
-import { __private, _decorator, CCInteger, Color, Component, instantiate, Node, Prefab, Sprite, Vec2, Vec3 } from 'cc';
+import { __private, _decorator, CCInteger, Color, Component, error, instantiate, Node, Prefab, Sprite, Vec2, Vec3 } from 'cc';
 import { SudokuBoard } from './SudokuBoard';
 import { PartofSudoku } from './PartofSudoku';
 const { ccclass, property } = _decorator;
@@ -103,7 +103,15 @@ export class SudokuController extends Component {
     writeValue(numpad){//not valid values must be marked ==================================================> look at me
         const partOfSudoku:PartofSudoku=this.sudokuNodes[this.currentPos.x][this.currentPos.y].getComponent(PartofSudoku);
         partOfSudoku.value=numpad;
+        
         this.sudokuBoard.board[this.currentPos.x][this.currentPos.y]=partOfSudoku.value;
+        if(this.sudokuBoard.isValidPlacement(this.currentPos.x,this.currentPos.y)){
+            console.log("true");
+            partOfSudoku.valid=true;
+        }else{
+            console.log("false");
+            partOfSudoku.valid=false;
+        }
     }
 
 

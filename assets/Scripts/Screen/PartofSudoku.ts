@@ -6,6 +6,7 @@ export class PartofSudoku extends Component {
     private _value: number = 0; // Private değişken olarak _value tanımlandı
     private _size:number=60;
     private _default:boolean=false;
+    private _valid:boolean=true;
     // Setter metodu
     set value(val: number) {
         if(this._default){
@@ -36,8 +37,22 @@ export class PartofSudoku extends Component {
         if(this._default){
             this.node.getComponentInChildren(Label).color=new Color("#696969");
         }else{
-            this.node.getComponentInChildren(Label).color=new Color("##000000");
+            this.node.getComponentInChildren(Label).color=new Color("##00000");
         }
+    }
+    get default():boolean{
+        return this._default;
+    }
+
+    set valid(val:boolean){
+        if(!this._default){
+            if(!val){
+                this.node.getComponentInChildren(Label).color=new Color("#FF0000");
+            }else{
+                this.node.getComponentInChildren(Label).color=new Color("##00000");
+            }
+        }
+        
     }
 
     start() {

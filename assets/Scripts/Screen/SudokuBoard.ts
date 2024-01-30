@@ -86,13 +86,13 @@ export class SudokuBoard  {
 
     isValidPlacement(row: number, col: number): boolean {
         let num = this.board[row][col];
-
+        console.log(num+"??");
         // Satır ve sütun kontrolü
         for (let i = 0; i < 9; i++) {
-            if (i !== col && this.board[row][i] === num) {
+            if (i != col && this.board[row][i] == num) {
                 return false;
             }
-            if (i !== row && this.board[i][col] === num) {
+            if (i != row && this.board[i][col] == num) {
                 return false;
             }
         }
@@ -103,7 +103,7 @@ export class SudokuBoard  {
 
         for (let i = startRow; i < startRow + 3; i++) {
             for (let j = startCol; j < startCol + 3; j++) {
-                if ((i !== row || j !== col) && this.board[i][j] === num) {
+                if ((i != row || j != col) && this.board[i][j] == num) {
                     return false;
                 }
             }
