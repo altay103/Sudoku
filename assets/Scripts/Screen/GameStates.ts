@@ -60,7 +60,6 @@ class WaitingControllerState implements State{
     controllerConnected(){
         if(this.gamestates.gameManager.waitingList.length>=2){
             this.gamestates.setState(this.gamestates.matchMakingState);
-            this.gamestates.gameManager.matchMaking();
         }
         
     }
@@ -81,7 +80,6 @@ class MatchMakingState implements State{
     }
     matchMaked() {
         this.gamestates.setState(this.gamestates.playState);
-        
     }
     controllerConnected() {
         this.gamestates.setState(this.gamestates.matchMakingState);
@@ -100,12 +98,16 @@ class PlayState implements State{
        this.gamestates.setState(this.gamestates.resultState);
     }
     controllerConnected(deviceID: number) {
-        
-        throw new Error('Method not implemented.');
+        window["airconsole"].message(deviceID,{status:"full"});
     }
     controllerDisconnected(deviceID: number) {
         if(this.gamestates.gameManager.playingList.find(()=>deviceID)!=undefined){
-            this.gamestates.setState(this.gamestates.waitingControllerState);
+            if(this.gamestates.gameManager.waitingList.length>=2){
+                this.gamestates.setState(this.gamestates.matchMakingState);
+            }else{
+                this.gamestates.setState(this.gamestates.waitingControllerState);
+            }
+            
         }
         
     }

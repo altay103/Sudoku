@@ -1,6 +1,7 @@
 import { _decorator, Component, Game, game, Node } from 'cc';
 import { GameStates, State } from './GameStates';
 import { SudokuController } from './SudokuController';
+import { SudokuBoard } from './SudokuBoard';
 const { ccclass, property } = _decorator;
 
 
@@ -97,7 +98,12 @@ export  class GameManager extends Component {
     }
     matchMaking(){
         console.log("Match Making");
-    
+
+        this.sudokuController.sudokuBoard=new SudokuBoard();
+        this.sudokuController.createBoard();
+        this.sudokuController.sudokuBoard.printBoard();
+        this.sudokuController.zoomIn(this.sudokuController.currentPos);
+
         if(this.waitingList.length<2){
             this.gameStates.setState(this.gameStates.waitingControllerState);
         }

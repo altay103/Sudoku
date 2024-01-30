@@ -25,14 +25,6 @@ export class SudokuController extends Component {
     next:boolean=false;
     start() {
 
-        this.sudokuBoard=new SudokuBoard();
-        this.createBoard();
-        this.sudokuBoard.printBoard();
-
-        this.zoomIn(this.currentPos);
-        /*window["airconsole"].onMessage=(deviceId,data)=>{
-            this.inputAnalyzer(data);
-        }*/
     }
 
     inputAnalyzer(inputPackage){    
